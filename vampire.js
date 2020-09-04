@@ -37,17 +37,31 @@ class Vampire {
 
   // Returns the vampire object with that name, or null if no vampire exists with that name
   vampireWithName(name) {
-    
+
   }
 
   // Returns the total number of vampires that exist
   get totalDescendents() {
-    
+    let result = this.offspring.length;
+
+    if (this.offspring.length !== 0)
+      result += this.offspring.reduce((sum, child) => sum + child.totalDescendents, 0);
+
+    return result;
   }
 
   // Returns an array of all the vampires that were converted after 1980
   get allMillennialVampires() {
+    let result = this.yearConverted > 1980 ? [this] : [];
     
+    result = this.offspring.reduce(
+      (millennials, vampire) => {
+        millennials.concat(vampire.allMillennialVampires);
+      },
+      result
+    );
+
+    return result;
   }
 
   /** Stretch **/
@@ -60,8 +74,8 @@ class Vampire {
   closestCommonAncestor(vampire) {
     let myPath = this.pathToRoot;
 
-    for(let ancestor of vampire.pathToRoot) {
-      if(myPath.includes(ancestor)) {
+    for (let ancestor of vampire.pathToRoot) {
+      if (myPath.includes(ancestor)) {
         return ancestor;
       }
     }
