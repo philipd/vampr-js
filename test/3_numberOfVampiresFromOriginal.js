@@ -28,7 +28,7 @@ describe("Vampire", function() {
     it("root should be 0 from original", () => {
       expect(rootVampire.numberOfVampiresFromOriginal).to.equal(0);
     });
-
+    
     it("offspring 1 should be 1 from original", () => {
       expect(offspring1.numberOfVampiresFromOriginal).to.equal(1);
     });
